@@ -1,6 +1,6 @@
 import TaskItem from "./TaskItem";
 
-export default function TaskLists({ tasks }) {
+export default function TaskLists({ tasks, onToggle }) {
     if(!tasks || tasks.length === 0) { <p>No tasks available</p>; }
     return (
         <ul>

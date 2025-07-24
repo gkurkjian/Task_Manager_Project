@@ -26,7 +26,7 @@ export default function Home() {
     <div style={{ padding: '2rem' }}>
       <h1>Task Manager</h1>
       <AddTaskForm onTaskAdded={fetchTasks} />
-      {loading ? <p>Loading...</p> : <TaskList tasks={tasks} />}
+      {loading ? <p>Loading...</p> : <TaskList tasks={tasks}  onToggle={fetchTasks}/>}
     </div>
   )
 }
