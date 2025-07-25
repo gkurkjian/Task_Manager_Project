@@ -1,12 +1,18 @@
-import TaskItem from "./TaskItem";
+import TaskItem from './TaskItem'
 
-export default function TaskLists({ tasks, onToggle }) {
-    if(!tasks || tasks.length === 0) { <p>No tasks available</p>; }
-    return (
-        <ul>
-            {tasks.map((task => {
-                <TaskItem key={task.id} task={task}/>
-            }))}
-        </ul>
-    )
+export default function TaskList({ tasks, onToggle, onDelete }) {
+  if (!tasks.length) return <p>No tasks yet.</p>
+
+  return (
+    <ul>
+      {tasks.map(task => (
+        <TaskItem
+          key={task.id}
+          task={task}
+          onToggle={onToggle}
+          onDelete={onDelete}
+        />
+      ))}
+    </ul>
+  )
 }

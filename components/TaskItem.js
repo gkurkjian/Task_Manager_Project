@@ -1,6 +1,6 @@
 import { supabase } from "@/lib/supabaseClient";
 
-export default function TaskItem({ task, onToggle }) {
+export default function TaskItem({ task, onToggle, onDelete }) {
     const handleToggle = async () => {
         const { data, error } = await supabase
             .from("tasks")
@@ -15,18 +15,27 @@ export default function TaskItem({ task, onToggle }) {
         }
     }
 
-    return (
-        <li>
-            <label>
-                <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={handleToggle}
-                />
-                <span style={{ textDecoration: task.completed ? 'line-through' : 'none' }}>
-                {task.title}
-                </span>
-            </label>
-        </li>
-    );
+    const handleDelete = async () => {
+        await supabase.from('tasks').delete().eq('id', task.id)
+        onDelete(); // ✅ Refresh task list
+    }
+
+    
+  return (
+    <li>
+      <label>
+        <input
+          type="checkbox"
+          checked={task.completed}
+          onChange={handleToggle}
+        />
+        <span style={{ textDecoration: task.completed ? 'line-through' : 'none', marginRight: 8 }}>
+          {task.title}
+        </span>
+      </label>
+      <button onClick={handleDelete} style={{ marginLeft: 8 }}>
+        ❌
+      </button>
+    </li>
+  );
 };
