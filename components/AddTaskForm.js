@@ -1,3 +1,4 @@
+// components/AddTaskForm.js
 import { useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 
@@ -7,33 +8,36 @@ export default function AddTaskForm({ onTaskAdded }) {
 
   const handleAddTask = async () => {
     if (!title.trim()) return;
-
     setLoading(true);
 
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("tasks")
       .insert([{ title, completed: false }]);
 
     if (error) {
       console.error("Error adding task:", error);
     } else {
-      console.log("Task added:", data);
       setTitle("");
-      onTaskAdded(); // ✅ Refresh task list
+      onTaskAdded();
     }
 
     setLoading(false);
   };
 
   return (
-    <div style={{ marginBottom: "1rem" }}>
+    <div className="mb-3 d-flex">
       <input
         type="text"
-        value={title}
+        className="form-control me-2"
         placeholder="New task"
+        value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <button onClick={handleAddTask} disabled={loading}>
+      <button
+        onClick={handleAddTask}
+        className="btn btn-primary"
+        disabled={loading}
+      >
         {loading ? "Adding..." : "Add"}
       </button>
     </div>

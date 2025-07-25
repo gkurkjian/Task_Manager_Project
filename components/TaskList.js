@@ -1,11 +1,12 @@
-import TaskItem from './TaskItem'
+// components/TaskList.js
+import TaskItem from "./TaskItem";
 
 export default function TaskList({ tasks, onToggle, onDelete }) {
-  if (!tasks.length) return <p>No tasks yet.</p>
+  if (!tasks.length) return <p className="text-muted">No tasks yet.</p>;
 
   return (
-    <ul>
-      {tasks.map(task => (
+    <ul className="list-group">
+      {tasks.map((task) => (
         <TaskItem
           key={task.id}
           task={task}
@@ -14,5 +15,5 @@ export default function TaskList({ tasks, onToggle, onDelete }) {
         />
       ))}
     </ul>
-  )
+  );
 }

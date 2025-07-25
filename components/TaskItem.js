@@ -1,41 +1,46 @@
 import { supabase } from "@/lib/supabaseClient";
 
+// components/TaskItem.js
 export default function TaskItem({ task, onToggle, onDelete }) {
-    const handleToggle = async () => {
-        const { data, error } = await supabase
-            .from("tasks")
-            .update({ completed: !task.completed })
-            .eq("id", task.id);
+  const handleToggle = async () => {
+    const { error } = await supabase
+      .from("tasks")
+      .update({ completed: !task.completed })
+      .eq("id", task.id);
 
-        if (error) {
-            console.error("Error toggling task:", error);
-        } else {
-            console.log("Task updated:", data);
-            onToggle(); // ✅ Refresh task list
-        }
-    }
+    if (!error) onToggle();
+  };
 
-    const handleDelete = async () => {
-        await supabase.from('tasks').delete().eq('id', task.id)
-        onDelete(); // ✅ Refresh task list
-    }
+  const handleDelete = async () => {
+    const { error } = await supabase
+      .from("tasks")
+      .delete()
+      .eq("id", task.id);
 
-    
+    if (!error) onDelete();
+  };
+
   return (
-    <li>
-      <label>
+    <li
+      className={`list-group-item d-flex justify-content-between align-items-center ${
+        task.completed ? "list-group-item-success" : ""
+      }`}
+    >
+      <div className="form-check">
         <input
+          className="form-check-input me-2"
           type="checkbox"
           checked={task.completed}
           onChange={handleToggle}
+          id={`task-${task.id}`}
         />
-        <span style={{ textDecoration: task.completed ? 'line-through' : 'none', marginRight: 8 }}>
+        <label className="form-check-label" htmlFor={`task-${task.id}`}>
           {task.title}
-        </span>
-      </label>
-      <button onClick={handleDelete} style={{ marginLeft: 8 }}>
-        ❌
+        </label>
+      </div>
+      <button className="btn btn-sm btn-outline-danger" onClick={handleDelete}>
+        ✕
       </button>
     </li>
   );
-};
+}
