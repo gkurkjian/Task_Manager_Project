@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { useRouter } from 'next/router';
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
+
 
 export default function Register() {
     const [email, setEmail] = useState("");
@@ -22,17 +24,42 @@ export default function Register() {
         }
     }
 
-    return (
-        <div className="container mt-5 text-white">
-            <h2>Register</h2>
-            <form onSubmit={handleRegister}>
-                <input type='email' placeholder='Email' className='form-control my-2'
-                    onChange={(e) => setEmail(e.target.value)} value={email} required/>
-                <input type='password' placeholder='Password' className='form-control my-2'
-                    onChange={(e) => setPassword(e.target.value)} value={password} required/>
-                {error && <p className="text-danger">{error}</p>}
-                <button className="btn btn-warning">Register</button>
-            </form>
-        </div>
-    );
+      return (
+    <Container className="mt-4">
+      <Row className="justify-content-center">
+        <Col xs={10} sm={8} md={6} lg={4}>
+          <h2 className="text-center mb-4 text-white">Register</h2> 
+          <Form onSubmit={handleRegister}>
+            <Form.Group className="mb-3" controlId="formEmail">
+              <Form.Label className="text-white">Email</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formPassword">
+              <Form.Label className="text-white">Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </Form.Group>
+
+            {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
+
+            <Button variant="warning" type="submit" className="w-100 mt-3">
+              Login
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
+  );
 }
