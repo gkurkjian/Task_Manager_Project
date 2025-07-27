@@ -65,7 +65,7 @@ export default function Home() {
 
       <div
         className="bg-white rounded shadow-sm w-100"
-        style={{ maxWidth: "500px", overflow: "hidden" }}
+        style={{ maxWidth: "500px", maxHeight: "400px", overflowY: "auto" }}
       >
         {tasks.map((task) => (
           <div
