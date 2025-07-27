@@ -1,6 +1,5 @@
 import { supabase } from "@/lib/supabaseClient";
 
-// components/TaskItem.js
 export default function TaskItem({ task, onToggle, onDelete }) {
   const handleToggle = async () => {
     const { error } = await supabase
@@ -21,20 +20,16 @@ export default function TaskItem({ task, onToggle, onDelete }) {
   };
 
   return (
-    <li
-      className={`list-group-item d-flex justify-content-between align-items-center ${
-        task.completed ? "list-group-item-success" : ""
-      }`}
-    >
-      <div className="form-check">
+    <li className={`task-item d-flex justify-content-between align-items-center ${task.completed ? "completed" : ""}`}>
+      <div className="d-flex align-items-center">
         <input
-          className="form-check-input me-2"
           type="checkbox"
+          className="form-check-input me-2"
           checked={task.completed}
           onChange={handleToggle}
           id={`task-${task.id}`}
         />
-        <label className="form-check-label" htmlFor={`task-${task.id}`}>
+        <label className="form-check-label mb-0" htmlFor={`task-${task.id}`}>
           {task.title}
         </label>
       </div>
