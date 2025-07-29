@@ -1,12 +1,15 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../styles/globals.css'
-import Layout from '../components/Layout'
+// pages/_app.js
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/globals.css'; // your own styles
+import Navigation from '@/components/Navigation';
 
 export default function App({ Component, pageProps }) {
   return (
-    <Layout>
-      {/* <h1 className="mb-4 text-center">Task Manager</h1> */}
-      <Component {...pageProps} />
-    </Layout>
+    <>
+      <Navigation />
+      <main style={{ paddingTop: '70px' }}>
+        <Component {...pageProps} />
+      </main>
+    </>
   );
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/router";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
+import Link from "next/link";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -53,6 +54,12 @@ export default function Login() {
             </Form.Group>
 
             {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
+
+            <div className="text-center mt-3">
+              <Link href="/forgot-password" className="text-decoration-none text-light">
+                Forgot Password?
+              </Link>
+            </div>
 
             <Button variant="warning" type="submit" className="w-100 mt-3">
               Login
